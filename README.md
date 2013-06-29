@@ -117,8 +117,6 @@ The base url of tests.
 
 ### Usage Examples
 
-#### Options
-
 In this example, first start selenium server, then run qunit testing with webdriver. 
 
 ```js
