@@ -1,0 +1,47 @@
+{
+  "name": "grunt-webdriver-qunit",
+  "description": "run qunit with webdriver",
+  "version": "0.0.1",
+  "homepage": "https://github.com/bulain/grunt-webdriver-qunit",
+  "author": {
+    "name": "Bulain Peng",
+    "email": "bulain@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bulain/grunt-webdriver-qunit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bulain/grunt-webdriver-qunit/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/bulain/grunt-webdriver-qunit/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-connect": "~0.3.0"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "dependencies": {
+    "selenium-webdriver": "~2.33.0",
+    "webdriverjs": "~0.7.8",
+    "async": "~0.2.9"
+  }
+}
