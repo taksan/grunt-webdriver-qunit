@@ -28,16 +28,16 @@
     "test": "grunt test"
   },
   "devDependencies": {
+    "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.1.1",
     "grunt-contrib-clean": "~0.4.0",
-    "grunt": "~0.4.1",
     "grunt-contrib-connect": "~0.3.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.1"
   },
   "keywords": [
-    "gruntplugin"
+    "grunt webdriver selenium qunit"
   ],
   "dependencies": {
     "selenium-webdriver": "~2.33.0",
