@@ -16,8 +16,6 @@ module.exports = function(grunt) {
       server;
   
   grunt.registerTask('webdriver_startup', 'startup selenium server standalone', function() {
-    grunt.log.writeln('Startup selenium server standalone');
-    
     var done = this.async();
     var options = this.options({
       jar: __dirname + '/../node_modules/webdriverjs/bin/selenium-server-standalone-2.31.0.jar',
@@ -27,6 +25,9 @@ module.exports = function(grunt) {
       env: null,
       stdio: null
     });
+    
+    grunt.log.writeln('Startup selenium server standalone at 0.0.0.0:' + options.port);
+    
     server = new remote.SeleniumServer(options);
     server.start();
     
