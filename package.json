@@ -1,7 +1,7 @@
 {
   "name": "grunt-webdriver-qunit",
-  "description": "run qunit with webdriver",
-  "version": "0.0.3",
+  "description": "grunt-webdriver-qunit is a grunt plugin to run qunit with webdriver in grunt",
+  "version": "0.0.4",
   "homepage": "https://github.com/bulain/grunt-webdriver-qunit",
   "author": {
     "name": "Bulain Peng",
@@ -37,7 +37,7 @@
     "grunt": "~0.4.1"
   },
   "keywords": [
-    "grunt webdriver selenium qunit"
+    "grunt", "webdriver", "selenium", "qunit"
   ],
   "dependencies": {
     "selenium-webdriver": "~2.33.0",
