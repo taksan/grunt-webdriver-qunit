@@ -36,9 +36,8 @@ module.exports = function(grunt) {
       }
     },
     
-    webdriver_start: {
+    webdriver_startup: {
       options : {
-        jar: 'node_modules/webdriverjs/bin/selenium-server-standalone-2.31.0.jar',
         port: '4444',
       }
     },

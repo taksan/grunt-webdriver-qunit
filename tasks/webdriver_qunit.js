@@ -20,7 +20,7 @@ module.exports = function(grunt) {
     
     var done = this.async();
     var options = this.options({
-      jar: 'node_modules/webdriverjs/bin/selenium-server-standalone-2.31.0.jar',
+      jar: __dirname + '/../node_modules/webdriverjs/bin/selenium-server-standalone-2.31.0.jar',
       port: 4444,
       jvmArgs: null,
       args: null,
