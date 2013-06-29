@@ -25,14 +25,14 @@ In your project's Gruntfile, add a section named `webdriver_start` to the data o
 ```js
 grunt.initConfig({
   webdriver_start: {
-      options : {
-        jar: '<selenium_jar_path>',
-        port: '<selenium_port>',
-        jvmArgs: '<jvm_args>',
-        args: '<java_args>',
-        env: '<environment>'
-        stdio: '<stdio>'
-      }
+    options : {
+      jar: '<selenium_jar_path>',
+      port: '<selenium_port>',
+      jvmArgs: '<jvm_args>',
+      args: '<java_args>',
+      env: '<environment>'
+      stdio: '<stdio>'
+    }
     },
 })
 ```
@@ -91,9 +91,6 @@ grunt.initConfig({
   },
 })
 ```
-#### Task webdriver_qunit
-Run qunit with webdriver.
-
 #### options.browserName
 Type: `String`
 Default value: `phantomjs`
@@ -120,7 +117,8 @@ The base url of tests.
 
 ### Usage Examples
 
-#### Default Options
+#### Options
+
 In this example, first start selenium server, then run qunit testing with webdriver. 
 
 ```js
@@ -136,16 +134,24 @@ grunt.initConfig({
       options: {
         browserName: 'phantomjs',
         reportsDir: 'target/surefire-reports',
-        qunitJson: '../qunit.json',
-        baseUrl: 'http://localhost',
+        qunitJson: '../test/qunit.json',
+        baseUrl: 'http://localhost:8000',
       }
     },
-    phantomjs: {
+    chrome: {
+      options: {
+        browserName: 'chrome',
+        reportsDir: 'target/surefire-reports',
+        qunitJson: '../test/qunit.json',
+        baseUrl: 'http://localhost:8000',
+      }
+    },
+    firefox: {
       options: {
         browserName: 'firefox',
         reportsDir: 'target/surefire-reports',
-        qunitJson: '../qunit.json',
-        baseUrl: 'http://localhost',
+        qunitJson: '../test/qunit.json',
+        baseUrl: 'http://localhost:8000',
       }
     },
   },
