@@ -3,6 +3,6 @@
   "waitSeconds" : 10,
   "tests" : [{
     "path" : "/test/index.html",
-    "waitSeconds" : 1
+    "waitSeconds" : 20
   }]
 }

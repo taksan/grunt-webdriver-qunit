@@ -19,11 +19,7 @@ module.exports = function(grunt) {
     var done = this.async();
     var options = this.options({
       jar: __dirname + '/../node_modules/webdriverjs/bin/selenium-server-standalone-2.31.0.jar',
-      port: 4444,
-      jvmArgs: null,
-      args: null,
-      env: null,
-      stdio: null
+      port: 4444
     });
     
     grunt.log.write('Startup selenium server standalone at 0.0.0.0:' + options.port + '...');
