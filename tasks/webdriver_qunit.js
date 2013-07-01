@@ -59,39 +59,45 @@ module.exports = function(grunt) {
         browserName = options.browserName,
         json = require(options.qunitJson),
         baseUrl = options.baseUrl || json.baseUrl,
+        defaultWaitSeconds = json.waitSeconds,
         reportsDir = options.reportsDir;
 
-    var testQunit = function(url, reportsDir, callback) {
-      grunt.log.writeln('Testing ' + url);
+    var testQunit = function(test, callback) {
+      grunt.log.writeln('Testing ' + baseUrl + test.path);
       
-      driver.get(url);
-      var By = webdriver.By;
-      var textContent = '';
-      var bool = true;
+      driver.get(baseUrl + test.path);
+      var By = webdriver.By,
+          textContent = '',
+          count = 0,
+          waitSeconds = test.waitSeconds || defaultWaitSeconds;
 
       async.whilst(function() {
-        return textContent.indexOf('completed') < 0;
+        return count < waitSeconds && textContent.indexOf('completed') < 0;
       }, function(cb) {
         driver.findElement(By.id('qunit-testresult')).getAttribute('textContent').then(function(text) {
           textContent = text;
-          cb();
+          count++;
+          setTimeout(cb, 1000);
         });
       }, function() {
         driver.findElement(By.id('qunit-xml')).getAttribute('innerHTML').then(function(innerHTML) {
           grunt.log.writeln(textContent);
-          var fileName = url.split('/').pop();
+          var fileName = test.path.split('/').pop();
           
           var chunk = ''; 
           chunk += '-------------------------------------------------------------------------------\n';
-          chunk += 'Test set: ' + url + '\n';
+          chunk += 'Test set: ' +  baseUrl + test.path + '\n';
           chunk += '-------------------------------------------------------------------------------\n';
           chunk += textContent;
           
           grunt.file.write(reportsDir + '/TEST-' + browserName + '-' + fileName + '.txt', chunk);
           grunt.file.write(reportsDir + '/TEST-' + browserName + '-' + fileName + '.xml', innerHTML);
-        });
-        driver.findElement(By.className('failed')).getText().then(function(failed) {
+        }).then(function(){
+          return driver.findElement(By.className('failed')).getText();
+        }).then(function(failed) {
           callback(null, '0' === failed);
+        }).then(null, function(e) {
+          callback(null, false);
         });
       });
     };
@@ -103,8 +109,8 @@ module.exports = function(grunt) {
       ignoreProtectedModeSettings: true
     }).build();
     
-    async.mapSeries(json.paths, function(path, callback){
-      testQunit(baseUrl+path, reportsDir, callback);
+    async.mapSeries(json.tests, function(test, callback){
+      testQunit(test, callback);
     }, function(err, results){
         driver.quit();
         var test = true;

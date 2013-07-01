@@ -68,6 +68,22 @@ module.exports = function(grunt) {
           baseUrl: 'http://localhost:8000',
         }
       },
+      ie: {
+        options: {
+          browserName: 'ie',
+          reportsDir: 'target/surefire-reports',
+          qunitJson: '../test/qunit.json',
+          baseUrl: 'http://localhost:8000',
+        }
+      },
+      safari: {
+        options: {
+          browserName: 'safari',
+          reportsDir: 'target/surefire-reports',
+          qunitJson: '../test/qunit.json',
+          baseUrl: 'http://localhost:8000',
+        }
+      },
     },
 
   });
@@ -82,9 +98,11 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'connect', 'webdriver_startup', 'webdriver_qunit']);
+  grunt.registerTask('linux', ['webdriver_qunit:phantomjs', 'webdriver_qunit:chrome', 'webdriver_qunit:firefox']);
+  grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'linux']);
+  grunt.registerTask('all', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+  grunt.registerTask('default', ['jshint', 'connect', 'webdriver_startup', 'webdriver_qunit:phantomjs']);
 
 };
