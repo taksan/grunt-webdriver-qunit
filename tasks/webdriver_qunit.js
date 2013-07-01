@@ -76,8 +76,13 @@ module.exports = function(grunt) {
           setTimeout(cb, 1000);
         });
       }, function() {
-        driver.findElement(By.id('qunit-xml')).getAttribute('innerHTML').then(function(innerHTML) {
+        driver.findElement(By.id('qunit-testresult')).getAttribute('textContent').then(function(text) {
+          textContent = text;
+        }).then(function(){
+          return driver.findElement(By.id('qunit-xml')).getAttribute('innerHTML');
+        }).then(function(innerHTML) {
           grunt.log.writeln(textContent);
+          
           var fileName = test.path.split('/').pop();
           
           var chunk = ''; 
@@ -91,8 +96,9 @@ module.exports = function(grunt) {
         }).then(function(){
           return driver.findElement(By.className('failed')).getText();
         }).then(function(failed) {
-          callback(null, '0' === failed);
+          callback(null, '0' === failed && textContent.indexOf('completed') > 0);
         }).then(null, function(e) {
+          grunt.verbose.error(e);
           callback(null, false);
         });
       });
