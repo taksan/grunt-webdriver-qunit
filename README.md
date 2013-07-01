@@ -1,6 +1,6 @@
 # grunt-webdriver-qunit
 
-> run qunit with webdriver
+> run qunit with webdriver on grunt
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -147,4 +147,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 * 2013-07-01 v0.1.0 first release, test pass on linux and windows.
-* 2013-06-29 v0.0.1 initial the first version.
+* 2013-06-29 v0.0.4 initial this project.
