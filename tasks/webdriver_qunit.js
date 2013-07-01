@@ -79,16 +79,14 @@ module.exports = function(grunt) {
         }).then(function(innerHTML) {
           grunt.log.writeln(textContent);
           
-          var fileName = test.path.split('/').pop();
-          
           var chunk = ''; 
           chunk += '-------------------------------------------------------------------------------\n';
           chunk += 'Test set: ' +  baseUrl + test.path + '\n';
           chunk += '-------------------------------------------------------------------------------\n';
           chunk += textContent;
           
-          grunt.file.write(reportsDir + '/TEST-' + browserName + '-' + fileName + '.txt', chunk);
-          grunt.file.write(reportsDir + '/TEST-' + browserName + '-' + fileName + '.xml', innerHTML);
+          grunt.file.write(reportsDir + '/' + browserName + test.path + '.txt', chunk);
+          grunt.file.write(reportsDir + '/' + browserName + test.path + '.xml', innerHTML);
         }).then(function(){
           return driver.findElement(By.className('failed')).getText();
         }).then(function(failed) {
