@@ -46,39 +46,23 @@ module.exports = function(grunt) {
     webdriver_qunit: {
       phantomjs: {
         options: {
-          browserName: 'phantomjs',
+          browserNames: ['phantomjs'],
           reportsDir: 'target/surefire-reports',
           qunitJson: '../test/qunit.json',
           baseUrl: 'http://localhost:8000',
         }
       },
-      chrome: {
+      linux: {
         options: {
-          browserName: 'chrome',
+          browserNames: ['phantomjs', 'chrome', 'firefox'],
           reportsDir: 'target/surefire-reports',
           qunitJson: '../test/qunit.json',
           baseUrl: 'http://localhost:8000',
         }
       },
-      firefox: {
+      windows: {
         options: {
-          browserName: 'firefox',
-          reportsDir: 'target/surefire-reports',
-          qunitJson: '../test/qunit.json',
-          baseUrl: 'http://localhost:8000',
-        }
-      },
-      ie: {
-        options: {
-          browserName: 'ie',
-          reportsDir: 'target/surefire-reports',
-          qunitJson: '../test/qunit.json',
-          baseUrl: 'http://localhost:8000',
-        }
-      },
-      safari: {
-        options: {
-          browserName: 'safari',
+          browserNames: ['phantomjs', 'chrome', 'firefox', 'ie', 'safari'],
           reportsDir: 'target/surefire-reports',
           qunitJson: '../test/qunit.json',
           baseUrl: 'http://localhost:8000',
@@ -98,11 +82,10 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('linux', ['webdriver_qunit:phantomjs', 'webdriver_qunit:chrome', 'webdriver_qunit:firefox']);
-  grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'linux']);
-  grunt.registerTask('all', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit']);
+  grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:linux']);
+  grunt.registerTask('all', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:windows']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'connect', 'webdriver_startup', 'webdriver_qunit:phantomjs']);
+  grunt.registerTask('default', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:phantomjs']);
 
 };

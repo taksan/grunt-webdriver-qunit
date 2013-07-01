@@ -26,43 +26,39 @@ module.exports = function(grunt) {
       stdio: null
     });
     
-    grunt.log.writeln('Startup selenium server standalone at 0.0.0.0:' + options.port);
+    grunt.log.write('Startup selenium server standalone at 0.0.0.0:' + options.port + '...');
     
-    server = new remote.SeleniumServer(options);
-    server.start();
+    var result = true;
+    try{
+      server = new remote.SeleniumServer(options);
+      server.start();
+      grunt.log.ok();
+    }catch (e) {
+      grunt.log.error();
+      grunt.verbose.error(e);
+      result = false;
+    }
     
     setTimeout(function() {
-      done(true);
+      done(result);
     }, 10000);
     
   });
   
-  grunt.registerTask('webdriver_shutdown', 'Shutdown selenium server standalone', function() {
-    grunt.log.writeln('Shutdown selenium server standalone');
-    
-    var done = this.async();
-    server.stop();
-    
-    setTimeout(function() {
-      done(true);
-    }, 100);
-  });
-  
-  
   grunt.registerMultiTask('webdriver_qunit', 'Run qunit with webdriver.', function() {
     var options = this.options({
-      browserName: 'phantomjs',
+      browserNames: ['phantomjs'],
       reportsDir : 'target/surefire-reports'
     });
     
     var driver, 
-        browserName = options.browserName,
+        browserNames = options.browserNames,
         json = require(options.qunitJson),
         baseUrl = options.baseUrl || json.baseUrl,
         defaultWaitSeconds = json.waitSeconds,
         reportsDir = options.reportsDir;
 
-    var testQunit = function(test, callback) {
+    var testQunit = function(browserName, test, callback) {
       grunt.log.writeln('Testing ' + baseUrl + test.path);
       
       driver.get(baseUrl + test.path);
@@ -104,22 +100,34 @@ module.exports = function(grunt) {
     
     var done = this.async();
     
-    driver = new webdriver.Builder().usingServer(server.address()).withCapabilities({
-      browserName : browserName,
-      ignoreProtectedModeSettings: true
-    }).build();
-    
-    async.mapSeries(json.tests, function(test, callback){
-      testQunit(test, callback);
-    }, function(err, results){
-        driver.quit();
-        var test = true;
-        for(var i in results){
-          test = test && results[i];
-        }
-        setTimeout(function() {
-          done(test);
-        }, 100);
+    async.mapSeries(browserNames, function(browserName, callback){
+      grunt.log.writeln('Browser: ' + browserName);
+      
+      driver = new webdriver.Builder().usingServer(server.address()).withCapabilities({
+        browserName : browserName,
+        ignoreProtectedModeSettings: true
+      }).build();
+      
+      async.mapSeries(json.tests, function(test, cb){
+        testQunit(browserName, test, cb);
+      }, function(err, results){
+          driver.quit();
+          var test = true;
+          for(var i in results){
+            test = test && results[i];
+          }
+          callback(err, test);
+      });
+    },function(err, results){
+      var test = true;
+      for(var i in results){
+        test = test && results[i];
+      }
+      setTimeout(function() {
+        done(test);
+      }, 100);
     });
+    
   });
+  
 };

@@ -83,7 +83,7 @@ In your project's Gruntfile, add a section named `webdriver_qunit` to the data o
 grunt.initConfig({
   webdriver_qunit: {
     firefox: {
-      browserName: '<browser_name>',
+      browserNames: '<browser_names>',
       reportsDir: '<reports_directory>',
       qunitJson: '<qunit_config>',
       baseUrl: '<base_url>',
@@ -91,11 +91,11 @@ grunt.initConfig({
   },
 })
 ```
-#### options.browserName
-Type: `String`
-Default value: `phantomjs`
+#### options.browserNames
+Type: `Array`
+Default value: `['phantomjs']`
 
-The browser name, the value is one of phantomjs, chrome, firefix, ie, safari
+The browser names, the value is the array of phantomjs, chrome, firefix, ie, safari.
 
 #### options.reportsDir
 Type: `String`
@@ -128,25 +128,9 @@ grunt.initConfig({
     }
   },
   webdriver_qunit: {
-    phantomjs: {
+    linux: {
       options: {
-        browserName: 'phantomjs',
-        reportsDir: 'target/surefire-reports',
-        qunitJson: '../test/qunit.json',
-        baseUrl: 'http://localhost:8000',
-      }
-    },
-    chrome: {
-      options: {
-        browserName: 'chrome',
-        reportsDir: 'target/surefire-reports',
-        qunitJson: '../test/qunit.json',
-        baseUrl: 'http://localhost:8000',
-      }
-    },
-    firefox: {
-      options: {
-        browserName: 'firefox',
+        browserNames: ['phantomjs', 'chrome', 'firefox'],
         reportsDir: 'target/surefire-reports',
         qunitJson: '../test/qunit.json',
         baseUrl: 'http://localhost:8000',
@@ -162,4 +146,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013-07-01 v0.1.0 first release, test pass on linux and windows.
 * 2013-06-29 v0.0.1 initial the first version.
