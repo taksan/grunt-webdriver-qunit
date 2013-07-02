@@ -125,21 +125,20 @@ Please download chromedriver, phantomjs and IEDriverServer, SafariDriver then pu
 grunt.initConfig({
   webdriver_start: {
     options : {
-      jar: 'node_modules/webdriverjs/bin/selenium-server-standalone-2.31.0.jar',
       port: '4444',
     }
   },
   webdriver_qunit: {
     linux: {
       options: {
-        browserNames: ['phantomjs', 'chrome', 'firefox'],
+        browserNames: ['phantomjs', 'chrome', 'firefox', 'ie', 'safari'],
         reportsDir: 'target/surefire-reports',
         qunitJson: '../test/qunit.json',
         baseUrl: 'http://localhost:8000',
       }
     },
   },
-  grunt.loadTasks('tasks');
+  grunt.loadNpmTasks('grunt-webdriver-qunit');
   grunt.registerTask('test', ['webdriver_startup', 'webdriver_qunit']);
 })
 ```
