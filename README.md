@@ -118,8 +118,10 @@ The base url of tests.
 ### Usage Examples
 
 In this example, first start selenium server, then run qunit testing with webdriver. 
+Please download chromedriver, phantomjs and IEDriverServer, SafariDriver then put them into PATH.
 
 ```js
+#Gruntfile.js
 grunt.initConfig({
   webdriver_start: {
     options : {
@@ -140,6 +142,18 @@ grunt.initConfig({
   grunt.loadTasks('tasks');
   grunt.registerTask('test', ['webdriver_startup', 'webdriver_qunit']);
 })
+```
+
+```js
+#qunit.json
+{
+  "baseUrl" : "http://localhost",
+  "waitSeconds" : 10,
+  "tests" : [{
+    "path" : "/test/index.html",
+    "waitSeconds" : 20
+  }]
+}
 ```
 
 ## Contributing
