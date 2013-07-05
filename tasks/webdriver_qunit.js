@@ -66,16 +66,19 @@ module.exports = function(grunt) {
       async.whilst(function() {
         return count < waitSeconds && textContent.indexOf('completed') < 0;
       }, function(cb) {
-        driver.findElement(By.id('qunit-testresult')).getAttribute('textContent').then(function(text) {
+        driver.findElement(By.id('qunit-testresult')).then(function(testresult){
+          return testresult.getAttribute('textContent');
+        }).then(function(text) {
           textContent = text;
+          count++;
+          setTimeout(cb, 1000);
+        }).then(null, function(){
           count++;
           setTimeout(cb, 1000);
         });
       }, function() {
-        driver.findElement(By.id('qunit-testresult')).getAttribute('textContent').then(function(text) {
-          textContent = text;
-        }).then(function(){
-          return driver.findElement(By.id('qunit-xml')).getAttribute('innerHTML');
+        driver.findElement(By.id('qunit-xml')).then(function(divXml){
+          return divXml.getAttribute('innerHTML');
         }).then(function(innerHTML) {
           grunt.log.writeln(textContent);
           

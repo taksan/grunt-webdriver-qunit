@@ -159,6 +159,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013-07-05 v0.1.2 fix bug about timeout.
 * 2013-07-01 v0.1.1 update report path, make them same with test path.
 * 2013-07-01 v0.1.0 first release, test pass on linux and windows.
 * 2013-06-29 v0.0.4 initial this project.
