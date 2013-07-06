@@ -82,10 +82,11 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:linux']);
-  grunt.registerTask('all', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:windows']);
+  grunt.registerTask('linux', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:linux']);
+  grunt.registerTask('windows', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:windows']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:phantomjs']);
+  grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:phantomjs']);
+  grunt.registerTask('default', ['test']);
 
 };
