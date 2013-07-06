@@ -1,4 +1,4 @@
-# grunt-webdriver-qunit
+# grunt-webdriver-qunit [![Build Status](https://travis-ci.org/bulain/grunt-webdriver-qunit.png?branch=master)](https://travis-ci.org/bulain/grunt-webdriver-qunit)
 
 > run qunit with webdriver on grunt
 
