@@ -88,12 +88,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task(s), then test the result.
+  // Define different tasks for linux and windows
   grunt.registerTask('linux', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:linux']);
   grunt.registerTask('windows', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:windows']);
 
-  // By default, lint and run all tests.
+  // By default, lint and run travis.
   grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:travis']);
   grunt.registerTask('default', ['test']);
 
