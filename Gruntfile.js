@@ -52,6 +52,14 @@ module.exports = function(grunt) {
           baseUrl: 'http://localhost:8000',
         }
       },
+      travis: {
+        options: {
+          browserNames: ['phantomjs', 'firefox'],
+          reportsDir: 'target/surefire-reports',
+          qunitJson: '../test/qunit.json',
+          baseUrl: 'http://localhost:8000',
+        }
+      },
       linux: {
         options: {
           browserNames: ['phantomjs', 'chrome', 'firefox'],
@@ -86,7 +94,7 @@ module.exports = function(grunt) {
   grunt.registerTask('windows', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:windows']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:phantomjs']);
+  grunt.registerTask('test', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:travis']);
   grunt.registerTask('default', ['test']);
 
 };
