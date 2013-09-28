@@ -115,10 +115,17 @@ module.exports = function(grunt) {
       }
       
       var seleniumUrl = server ? server.address() : options.seleniumUrl;
-      driver = new webdriver.Builder().usingServer(seleniumUrl).withCapabilities({
-        browserName : browserName,
-        ignoreProtectedModeSettings: true
-      }).build();
+      var capabilities = webdriver.Capabilities[browserName]();
+      if (browserName === 'ie') {
+        capabilities.set('ignoreProtectedModeSettings', true);
+      }
+
+      var builder = new webdriver.Builder();
+      if (browserName !== 'phantomjs') {
+        builder.usingServer(seleniumUrl);
+      }
+      console.log(capabilities);
+      driver = builder.withCapabilities(capabilities).build();
       
       async.mapSeries(json.tests, function(test, cb){
         testQunit(browserName, test, cb);
