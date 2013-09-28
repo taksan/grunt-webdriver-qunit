@@ -82,11 +82,16 @@ In your project's Gruntfile, add a section named `webdriver_qunit` to the data o
 ```js
 grunt.initConfig({
   webdriver_qunit: {
-    firefox: {
-      browserNames: '<browser_names>',
+    options: {
       reportsDir: '<reports_directory>',
       qunitJson: '<qunit_config>',
       baseUrl: '<base_url>',
+      seleniumUrl: '<selenium_url>',
+    },
+    firefox: {
+      options: {
+        browserNames: '<browser_names>',
+      }
     },
   },
 })
@@ -114,6 +119,14 @@ Type: `String`
 Default value: `null`
 
 The base url of tests.
+
+#### options.seleniumUrl
+Type: `String`
+Default value: `http://localhost:4444/wd/hub`. 
+If webdriver_start given, this option ignore, will using the local selenium to testing.
+Otherwise, will using the external selenium to testing.
+
+The selenium url.
 
 ### Usage Examples
 
@@ -156,9 +169,10 @@ grunt.initConfig({
 ```
 
 ## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
+In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013-09-28 v0.2.0 add support external selenium.
 * 2013-07-05 v0.1.2 fix bug about timeout.
 * 2013-07-01 v0.1.1 update report path, make them same with test path.
 * 2013-07-01 v0.1.0 first release, test pass on linux and windows.
