@@ -7,5 +7,4 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3
   - npm install -g grunt-cli
-  - npm install grunt-curl
   - grunt curl-dir
