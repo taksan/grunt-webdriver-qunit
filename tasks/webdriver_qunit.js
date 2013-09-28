@@ -18,13 +18,14 @@ module.exports = function(grunt) {
   grunt.registerTask('webdriver_startup', 'startup selenium server standalone', function() {
     var done = this.async();
     var options = this.options({
-      jar: __dirname + '/../node_modules/.bin/selenium-server-standalone-2.35.0.jar',
+      jar: 'node_modules/.bin/selenium-server-standalone-2.35.0.jar',
       port: 4444
     });
     var jar = options.jar;
     delete options.jar;
     
-    grunt.log.write('Startup selenium server standalone at 0.0.0.0:' + options.port + '...');
+    grunt.log.writeln('Selenium jar: '+jar);
+    grunt.log.writeln('Startup selenium server standalone at 0.0.0.0:' + options.port + '...');
     
     var result = true;
     try{
@@ -107,7 +108,11 @@ module.exports = function(grunt) {
     var done = this.async();
     
     async.mapSeries(browserNames, function(browserName, callback){
+      
       grunt.log.writeln('Browser: ' + browserName);
+      if (!server) {
+        grunt.log.writeln('Selenium url: ' + options.seleniumUrl);
+      }
       
       var seleniumUrl = server ? server.address() : options.seleniumUrl;
       driver = new webdriver.Builder().usingServer(seleniumUrl).withCapabilities({
