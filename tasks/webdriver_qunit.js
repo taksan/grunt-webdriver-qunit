@@ -18,7 +18,7 @@ module.exports = function(grunt) {
   grunt.registerTask('webdriver_startup', 'startup selenium server standalone', function() {
     var done = this.async();
     var options = this.options({
-      jar: __dirname + '/../node_modules/webdriverjs/bin/selenium-server-standalone-2.31.0.jar',
+      jar: __dirname + '/../node_modules/.bin/selenium-server-standalone-2.35.0.jar',
       port: 4444
     });
     
@@ -44,7 +44,8 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('webdriver_qunit', 'Run qunit with webdriver.', function() {
     var options = this.options({
       browserNames: ['phantomjs'],
-      reportsDir : 'target/surefire-reports'
+      reportsDir : 'target/surefire-reports',
+      seleniumUrl : 'http://localhost:4444/wd/hub'
     });
     
     var driver, 
@@ -106,7 +107,8 @@ module.exports = function(grunt) {
     async.mapSeries(browserNames, function(browserName, callback){
       grunt.log.writeln('Browser: ' + browserName);
       
-      driver = new webdriver.Builder().usingServer(server.address()).withCapabilities({
+      var seleniumUrl = server ? server.address() : options.seleniumUrl;
+      driver = new webdriver.Builder().usingServer(seleniumUrl).withCapabilities({
         browserName : browserName,
         ignoreProtectedModeSettings: true
       }).build();

@@ -27,6 +27,15 @@ module.exports = function(grunt) {
       target: ['target'],
     },
     
+    'curl-dir': {
+      long:{
+        src: [
+          'https://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar'
+        ],
+        dest: 'node_modules/.bin'
+      }
+    },
+    
     connect : {
       server : {
         options : {
@@ -44,36 +53,29 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     webdriver_qunit: {
+      options: {
+        baseUrl: 'http://localhost:8000',
+        qunitJson: '../test/qunit.json',
+        reportsDir: 'target/surefire-reports',
+      },
       phantomjs: {
         options: {
           browserNames: ['phantomjs'],
-          reportsDir: 'target/surefire-reports',
-          qunitJson: '../test/qunit.json',
-          baseUrl: 'http://localhost:8000',
         }
       },
       travis: {
         options: {
           browserNames: ['phantomjs', 'firefox'],
-          reportsDir: 'target/surefire-reports',
-          qunitJson: '../test/qunit.json',
-          baseUrl: 'http://localhost:8000',
         }
       },
       linux: {
         options: {
           browserNames: ['phantomjs', 'chrome', 'firefox'],
-          reportsDir: 'target/surefire-reports',
-          qunitJson: '../test/qunit.json',
-          baseUrl: 'http://localhost:8000',
         }
       },
       windows: {
         options: {
           browserNames: ['phantomjs', 'chrome', 'firefox', 'ie', 'safari'],
-          reportsDir: 'target/surefire-reports',
-          qunitJson: '../test/qunit.json',
-          baseUrl: 'http://localhost:8000',
         }
       },
     },
@@ -87,6 +89,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-curl');
 
   // Define different tasks for linux and windows
   grunt.registerTask('linux', ['jshint', 'clean', 'connect', 'webdriver_startup', 'webdriver_qunit:linux']);
