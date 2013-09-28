@@ -21,12 +21,14 @@ module.exports = function(grunt) {
       jar: __dirname + '/../node_modules/.bin/selenium-server-standalone-2.35.0.jar',
       port: 4444
     });
+    var jar = options.jar;
+    delete options.jar;
     
     grunt.log.write('Startup selenium server standalone at 0.0.0.0:' + options.port + '...');
     
     var result = true;
     try{
-      server = new remote.SeleniumServer(options);
+      server = new remote.SeleniumServer(jar, options);
       server.start();
       grunt.log.ok();
     }catch (e) {
