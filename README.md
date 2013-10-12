@@ -172,6 +172,7 @@ grunt.initConfig({
 In lieu of a formal style guide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013-10-12 v0.2.5 fix the download selenium bug.
 * 2013-10-12 v0.2.4 auto download selenium when install this plugin.
 * 2013-09-28 v0.2.3 support selenium grid.
 * 2013-09-28 v0.2.2 update selenium default jar path.
