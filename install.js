@@ -4,6 +4,7 @@ var https = require('https');
 var url = require('url');
 var kew = require('kew');
 var npmconf = require('npmconf');
+var util = require("util");
 
 var seleniumJar = 'selenium-server-standalone-2.35.0.jar';
 var downloadedDir = './bin/';
@@ -58,7 +59,7 @@ var downloadUrl = 'http://selenium.googlecode.com/files/' + seleniumJar;
     var writePath = filePath + '-download-' + Date.now();
     var outFile = fs.openSync(writePath, 'w');
 
-    var httpProxy = downloadUrl.indexOf('https') === 0 ? https : http;
+    var httpProxy = http;
     var client = httpProxy.get(requestOptions, function(response) {
       var status = response.statusCode;
       console.log('Receiving...');
