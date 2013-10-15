@@ -1,17 +1,18 @@
 var fs = require('fs');
 var http = require('http');
-var https = require('https');
 var url = require('url');
 var kew = require('kew');
 var npmconf = require('npmconf');
 var util = require("util");
+var path = require("path");
 
-var seleniumJar = 'selenium-server-standalone-2.35.0.jar';
 var downloadedDir = './bin/';
-var downloadUrl = 'http://selenium.googlecode.com/files/' + seleniumJar;
+var downloadUrl = 'http://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar';
 
 (function() {
-  var downloadedFile = downloadedDir + seleniumJar;
+  var fileName = downloadUrl.split('/').pop();
+  var downloadedFile = path.join(downloadedDir, fileName);
+  
   var npmconfDeferred = kew.defer();
   npmconf.load(npmconfDeferred.makeNodeResolver());
   npmconfDeferred.promise.then(function(conf) {
@@ -59,8 +60,7 @@ var downloadUrl = 'http://selenium.googlecode.com/files/' + seleniumJar;
     var writePath = filePath + '-download-' + Date.now();
     var outFile = fs.openSync(writePath, 'w');
 
-    var httpProxy = http;
-    var client = httpProxy.get(requestOptions, function(response) {
+    var client = http.get(requestOptions, function(response) {
       var status = response.statusCode;
       console.log('Receiving...');
 
