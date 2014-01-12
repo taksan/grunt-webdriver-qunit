@@ -30,7 +30,7 @@ module.exports = function(grunt) {
     'curl-dir': {
       long:{
         src: [
-          'http://selenium.googlecode.com/files/selenium-server-standalone-2.35.0.jar'
+          'http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar'
         ],
         dest: './bin/'
       }

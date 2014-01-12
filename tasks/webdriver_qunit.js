@@ -18,7 +18,7 @@ module.exports = function(grunt) {
   grunt.registerTask('webdriver_startup', 'startup selenium server standalone', function() {
     var done = this.async();
     var options = this.options({
-      jar: __dirname + '/../bin/selenium-server-standalone-2.35.0.jar',
+      jar: __dirname + '/../bin/selenium-server-standalone-2.39.0.jar',
       port: 4444
     });
     var jar = options.jar;
